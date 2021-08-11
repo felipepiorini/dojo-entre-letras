@@ -26,20 +26,30 @@ describe('QuebraLinha', () => {
     expect(() => { sut.handle(frase, numeroColunas) }).toThrowError('A frase não foi informada!')
   });
 
-  test('Quantidade de coluna nao informado', () => {
+  test('Quantidade de colunas nao informado', () => {
     const frase = 'test';
     const numeroColunas = null;
     const { sut } = makeSut();
 
-    expect(() => { sut.handle(frase, numeroColunas) }).toThrowError('A quantidade de coluna não foi informada!')
+    expect(() => { sut.handle(frase, numeroColunas) }).toThrowError('A quantidade de colunas não foi informada!')
   });
   
-  test('Deve retorna erro se frase seja null', () => {
+  test('Deve retornar a quantidade correta de quebras de linha', () => {
     const frase =  'Um pequeno jabuti xereta viu dez cegonhas felizes.';
     const numeroColunas = 20;
     const { sut } = makeSut();
     const result = sut.handle(frase, numeroColunas);
-
-    expect(result.length).toBe(3)
+    expect(result.split('\n').length).toBe(3)
   });
+
+  test('A frase deve ser dividida corretamenta', () => {
+    const frase = 'Um pequeno jabuti xereta viu dez cegonhas felizes.';
+    const numeroColunas = 20;
+    const { sut } = makeSut();
+    const result = sut.handle(frase, numeroColunas);
+    const expectResult = 'Um pequeno jabuti\nxereta viu dez\ncegonhas felizes.';
+    expect(result).toEqual(expectResult);
+  });
+  
 })
+  
